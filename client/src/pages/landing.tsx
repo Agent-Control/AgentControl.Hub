@@ -96,7 +96,7 @@ export default function Landing() {
                 <Brain className="text-white h-5 w-5" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-gray-900">Agent Control</h1>
+                <h1 className="text-xl font-semibold text-gray-900">The Agent Pilot</h1>
               </div>
             </div>
             
@@ -126,16 +126,16 @@ export default function Landing() {
             </div>
             
             <h1 className="text-6xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight tracking-tight">
-              Safe AI Agent
+              AI Agent
               <br />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Deployment
+                Governance
               </span>
             </h1>
             
             <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Enable autonomous AI agents to pause and escalate to human experts when encountering 
-              complex decisions, ensuring safety without sacrificing efficiency.
+              Comprehensive oversight platform for multi-agent systems with real-time threat detection, 
+              collusion prevention, and human-in-the-loop governance for safe AI deployment.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
@@ -179,10 +179,10 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-bold text-gray-900 mb-6 tracking-tight">
-              Complete AI Agent Oversight
+              Multi-Agent Governance Platform
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive monitoring and intervention capabilities designed for enterprise AI deployments
+              Advanced threat detection, collusion prevention, and human oversight for complex agent systems
             </p>
           </div>
           
@@ -255,11 +255,11 @@ export default function Landing() {
       <section id="enterprise" className="py-32 bg-gray-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-5xl font-bold text-white mb-6 tracking-tight">
-            Ready to Deploy Safe AI Agents?
+            Ready to Govern Your Agent Fleet?
           </h2>
           <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Experience live AI agent escalations and see how human oversight maintains safety 
-            while preserving operational efficiency.
+            Experience real-time threat detection and see how multi-agent governance prevents 
+            collusion while maintaining operational efficiency.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
@@ -305,11 +305,11 @@ export default function Landing() {
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                   <Brain className="text-white h-5 w-5" />
                 </div>
-                <span className="text-xl font-semibold text-gray-900">Agent Control</span>
+                <span className="text-xl font-semibold text-gray-900">The Agent Pilot</span>
               </div>
               <p className="text-gray-600 leading-relaxed mb-6 max-w-md">
-                Human-in-the-Loop oversight platform for safe AI agent deployment. 
-                Enable autonomous agents with human wisdom.
+                Multi-agent governance platform with real-time threat detection and collusion prevention. 
+                Secure your autonomous agent fleet with human oversight.
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-gray-600 transition-colors">
@@ -359,7 +359,7 @@ export default function Landing() {
           </div>
           
           <div className="border-t border-gray-200 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-500">&copy; 2025 Agent Control. All rights reserved.</p>
+            <p className="text-sm text-gray-500">&copy; 2025 The Agent Pilot. All rights reserved.</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-sm text-gray-500 hover:text-gray-700 transition-colors">Privacy Policy</a>
               <a href="#" className="text-sm text-gray-500 hover:text-gray-700 transition-colors">Terms of Service</a>
