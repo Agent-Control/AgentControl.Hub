@@ -28,6 +28,10 @@ export default function Dashboard() {
     queryKey: ["/api/escalations"],
   });
 
+  const { data: governanceData } = useQuery({
+    queryKey: ["/api/governance-dashboard"],
+  });
+
   // WebSocket for real-time updates
   useWebSocket((message) => {
     switch (message.type) {
@@ -61,12 +65,24 @@ export default function Dashboard() {
   }, [escalations, filters]);
 
   const stats = useMemo(() => {
-    return {
+    const basicStats = {
       highPriority: filteredEscalations.filter((e: Escalation) => e.riskLevel === "high").length,
       mediumPriority: filteredEscalations.filter((e: Escalation) => e.riskLevel === "medium").length,
       lowPriority: filteredEscalations.filter((e: Escalation) => e.riskLevel === "low").length,
     };
-  }, [filteredEscalations]);
+
+    // Add governance threat statistics
+    if (governanceData?.threatSummary) {
+      return {
+        ...basicStats,
+        criticalThreats: governanceData.threatSummary.critical,
+        activeSessions: governanceData.activeSessions?.length || 0,
+        totalThreats: governanceData.threatSummary.total,
+      };
+    }
+
+    return basicStats;
+  }, [filteredEscalations, governanceData]);
 
   const avgResponseTime = "1.2min"; // This would be calculated from actual data
 

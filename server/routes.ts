@@ -110,6 +110,73 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Multi-Agent Governance API Routes
+  app.get("/api/agent-sessions", async (req, res) => {
+    try {
+      const sessions = await storage.getAgentSessions();
+      res.json(sessions);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch agent sessions" });
+    }
+  });
+
+  app.get("/api/agent-actions", async (req, res) => {
+    try {
+      const sessionId = req.query.sessionId as string;
+      const actions = await storage.getAgentActions(sessionId);
+      res.json(actions);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch agent actions" });
+    }
+  });
+
+  app.get("/api/threat-detections", async (req, res) => {
+    try {
+      const threats = await storage.getThreatDetections();
+      res.json(threats);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch threat detections" });
+    }
+  });
+
+  app.get("/api/judge-evaluations", async (req, res) => {
+    try {
+      const evaluations = await storage.getJudgeEvaluations();
+      res.json(evaluations);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch judge evaluations" });
+    }
+  });
+
+  // Enhanced escalation route with threat context
+  app.get("/api/governance-dashboard", async (req, res) => {
+    try {
+      const [escalations, threats, sessions, actions] = await Promise.all([
+        storage.getEscalations(),
+        storage.getThreatDetections(),
+        storage.getAgentSessions(),
+        storage.getAgentActions()
+      ]);
+
+      const dashboard = {
+        escalations,
+        threatDetections: threats,
+        activeSessions: sessions.filter(s => s.status === "active"),
+        recentActions: actions.slice(0, 50),
+        threatSummary: {
+          critical: threats.filter(t => t.severity === "critical" && !t.mitigated).length,
+          high: threats.filter(t => t.severity === "high" && !t.mitigated).length,
+          medium: threats.filter(t => t.severity === "medium" && !t.mitigated).length,
+          total: threats.filter(t => !t.mitigated).length
+        }
+      };
+
+      res.json(dashboard);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch governance dashboard data" });
+    }
+  });
+
   const httpServer = createServer(app);
   
   // WebSocket server for real-time updates
