@@ -1,4 +1,9 @@
-import { users, escalations, chatMessages, type User, type InsertUser, type Escalation, type InsertEscalation, type ChatMessage, type InsertChatMessage } from "@shared/schema";
+import { 
+  users, escalations, chatMessages, agentSessions, agentActions, threatDetections, judgeEvaluations,
+  type User, type InsertUser, type Escalation, type InsertEscalation, type ChatMessage, type InsertChatMessage,
+  type AgentSession, type InsertAgentSession, type AgentAction, type InsertAgentAction,
+  type ThreatDetection, type InsertThreatDetection, type JudgeEvaluation, type InsertJudgeEvaluation
+} from "@shared/schema";
 
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
@@ -12,25 +17,55 @@ export interface IStorage {
   
   getChatMessages(escalationId: number): Promise<ChatMessage[]>;
   createChatMessage(message: InsertChatMessage): Promise<ChatMessage>;
+
+  // Multi-Agent Governance Methods
+  getAgentSessions(): Promise<AgentSession[]>;
+  getAgentSession(sessionId: string): Promise<AgentSession | undefined>;
+  createAgentSession(session: InsertAgentSession): Promise<AgentSession>;
+  updateAgentSession(sessionId: string, updates: Partial<AgentSession>): Promise<AgentSession | undefined>;
+
+  getAgentActions(sessionId?: string): Promise<AgentAction[]>;
+  createAgentAction(action: InsertAgentAction): Promise<AgentAction>;
+  updateAgentAction(id: number, updates: Partial<AgentAction>): Promise<AgentAction | undefined>;
+
+  getThreatDetections(): Promise<ThreatDetection[]>;
+  createThreatDetection(threat: InsertThreatDetection): Promise<ThreatDetection>;
+  updateThreatDetection(id: number, updates: Partial<ThreatDetection>): Promise<ThreatDetection | undefined>;
+
+  getJudgeEvaluations(): Promise<JudgeEvaluation[]>;
+  createJudgeEvaluation(evaluation: InsertJudgeEvaluation): Promise<JudgeEvaluation>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private escalations: Map<number, Escalation>;
   private chatMessages: Map<number, ChatMessage>;
+  private agentSessions: Map<string, AgentSession>;
+  private agentActions: Map<number, AgentAction>;
+  private threatDetections: Map<number, ThreatDetection>;
+  private judgeEvaluations: Map<number, JudgeEvaluation>;
   private currentUserId: number;
   private currentEscalationId: number;
   private currentChatId: number;
+  private currentActionId: number;
+  private currentThreatId: number;
+  private currentEvaluationId: number;
 
   constructor() {
     this.users = new Map();
     this.escalations = new Map();
     this.chatMessages = new Map();
+    this.agentSessions = new Map();
+    this.agentActions = new Map();
+    this.threatDetections = new Map();
+    this.judgeEvaluations = new Map();
     this.currentUserId = 1;
     this.currentEscalationId = 1;
     this.currentChatId = 1;
+    this.currentActionId = 1;
+    this.currentThreatId = 1;
+    this.currentEvaluationId = 1;
     
-    // Initialize with mock escalations
     this.initializeMockData();
   }
 
