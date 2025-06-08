@@ -190,16 +190,33 @@ export default function Dashboard() {
             </div>
           ) : (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-              {filteredEscalations.map((escalation: Escalation) => (
-                <EscalationCard
-                  key={escalation.id}
-                  escalation={escalation}
-                  onApprove={handleApprove}
-                  onDeny={handleDeny}
-                  onEdit={handleEdit}
-                  onChat={handleChat}
-                />
-              ))}
+              {filteredEscalations.map((escalation: any) => {
+                // Enhance escalation with threat context
+                const threatContext = governanceData?.threatDetections?.find(
+                  (threat: any) => threat.sessionId === escalation.context?.sessionId
+                );
+                
+                const enhancedEscalation = {
+                  ...escalation,
+                  threatInfo: threatContext ? {
+                    type: threatContext.threatType,
+                    confidence: threatContext.confidence,
+                    severity: threatContext.severity,
+                    evidence: threatContext.evidence
+                  } : null
+                };
+
+                return (
+                  <EscalationCard
+                    key={escalation.id}
+                    escalation={enhancedEscalation}
+                    onApprove={handleApprove}
+                    onDeny={handleDeny}
+                    onEdit={handleEdit}
+                    onChat={handleChat}
+                  />
+                );
+              })}
             </div>
           )}
         </main>

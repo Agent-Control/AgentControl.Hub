@@ -6,7 +6,14 @@ import type { Escalation } from "@shared/schema";
 import { useEffect, useState } from "react";
 
 interface EscalationCardProps {
-  escalation: Escalation;
+  escalation: Escalation & {
+    threatInfo?: {
+      type: string;
+      confidence: number;
+      severity: string;
+      evidence: any;
+    };
+  };
   onApprove: (id: number) => void;
   onDeny: (id: number) => void;
   onEdit: (id: number) => void;
@@ -18,13 +25,31 @@ const getAgentIcon = (agentType: string) => {
     case "Payment Agent":
       return CreditCard;
     case "Fraud Detection":
+    case "Judge Model":
       return Shield;
     case "Compliance Agent":
       return FileText;
     case "Trade Agent":
       return TrendingUp;
+    case "Threat Detection System":
+      return Shield;
     default:
       return CreditCard;
+  }
+};
+
+const getThreatTypeColor = (threatType: string) => {
+  switch (threatType) {
+    case "collusion":
+      return "bg-red-100 text-red-800 border-red-200";
+    case "misalignment":
+      return "bg-orange-100 text-orange-800 border-orange-200";
+    case "boundary_violation":
+      return "bg-purple-100 text-purple-800 border-purple-200";
+    case "anomaly":
+      return "bg-yellow-100 text-yellow-800 border-yellow-200";
+    default:
+      return "bg-gray-100 text-gray-800 border-gray-200";
   }
 };
 
@@ -89,6 +114,16 @@ export function EscalationCard({ escalation, onApprove, onDeny, onEdit, onChat }
   return (
     <Card className={`shadow-lg border-l-4 ${riskColor} overflow-hidden`}>
       <CardContent className="p-6">
+        {/* Threat Detection Badge */}
+        {escalation.threatInfo && (
+          <div className="mb-4">
+            <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getThreatTypeColor(escalation.threatInfo.type)}`}>
+              <Shield className="w-3 h-3 mr-1" />
+              {escalation.threatInfo.type.replace('_', ' ').toUpperCase()} • {escalation.threatInfo.confidence}% confidence
+            </div>
+          </div>
+        )}
+
         {/* Card Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-start space-x-3">

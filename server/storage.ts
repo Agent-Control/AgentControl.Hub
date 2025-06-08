@@ -274,6 +274,7 @@ export class MemStorage implements IStorage {
     const newSession: AgentSession = {
       ...session,
       id: Math.floor(Math.random() * 1000000),
+      status: session.status || "active",
       startedAt: new Date(),
       completedAt: null,
     };
@@ -307,6 +308,7 @@ export class MemStorage implements IStorage {
       timestamp: new Date(),
       riskScore: this.calculateRiskScore(action),
       flagged: false,
+      targetAgent: action.targetAgent || null,
     };
     this.agentActions.set(id, newAction);
     
