@@ -144,6 +144,9 @@ export class MemStorage implements IStorage {
       id,
       createdAt: new Date(),
       resolvedAt: null,
+      status: escalation.status || "pending",
+      operatorId: escalation.operatorId || null,
+      response: escalation.response || null,
     };
     this.escalations.set(id, newEscalation);
     return newEscalation;

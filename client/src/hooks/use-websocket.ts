@@ -10,36 +10,45 @@ export function useWebSocket(onMessage?: (message: WebSocketMessage) => void) {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const wsUrl = `${protocol}//${window.location.host}/ws`;
+    let reconnectTimer: NodeJS.Timeout;
     
-    ws.current = new WebSocket(wsUrl);
+    const connect = () => {
+      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      const wsUrl = `${protocol}//${window.location.host}/ws`;
+      
+      ws.current = new WebSocket(wsUrl);
 
-    ws.current.onopen = () => {
-      setIsConnected(true);
-      // Subscribe to escalation updates
-      ws.current?.send(JSON.stringify({ type: 'subscribe_escalations' }));
+      ws.current.onopen = () => {
+        setIsConnected(true);
+        // Subscribe to escalation updates
+        ws.current?.send(JSON.stringify({ type: 'subscribe_escalations' }));
+      };
+
+      ws.current.onmessage = (event) => {
+        try {
+          const message = JSON.parse(event.data);
+          onMessage?.(message);
+        } catch (error) {
+          console.error('Error parsing WebSocket message:', error);
+        }
+      };
+
+      ws.current.onclose = () => {
+        setIsConnected(false);
+        // Reconnect after 3 seconds
+        reconnectTimer = setTimeout(connect, 3000);
+      };
+
+      ws.current.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        setIsConnected(false);
+      };
     };
 
-    ws.current.onmessage = (event) => {
-      try {
-        const message = JSON.parse(event.data);
-        onMessage?.(message);
-      } catch (error) {
-        console.error('Error parsing WebSocket message:', error);
-      }
-    };
-
-    ws.current.onclose = () => {
-      setIsConnected(false);
-    };
-
-    ws.current.onerror = (error) => {
-      console.error('WebSocket error:', error);
-      setIsConnected(false);
-    };
+    connect();
 
     return () => {
+      if (reconnectTimer) clearTimeout(reconnectTimer);
       ws.current?.close();
     };
   }, [onMessage]);
