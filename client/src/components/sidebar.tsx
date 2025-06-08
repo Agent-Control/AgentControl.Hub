@@ -17,8 +17,8 @@ export function Sidebar({ activeEscalationsCount }: SidebarProps) {
             <Brain className="text-white text-lg" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-neutral">Agent Control</h1>
-            <p className="text-sm text-neutral-light">HITL Platform</p>
+            <h1 className="text-xl font-bold text-neutral">The Agent Pilot</h1>
+            <p className="text-sm text-neutral-light">Governance Platform</p>
           </div>
         </div>
       </div>
