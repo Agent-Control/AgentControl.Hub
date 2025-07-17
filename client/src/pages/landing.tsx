@@ -397,9 +397,8 @@ export default function Landing() {
             </div>
           </div>
           
-          <div className="border-t border-gray-200 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-500">&copy; 2025 The Agent Pilot. All rights reserved.</p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
+          <div className="border-t border-gray-200 mt-16 pt-8 flex flex-col md:flex-row justify-center items-center">
+            <div className="flex space-x-6">
               <a href="#" className="text-sm text-gray-500 hover:text-gray-700 transition-colors">Privacy Policy</a>
               <a href="#" className="text-sm text-gray-500 hover:text-gray-700 transition-colors">Terms of Service</a>
               <a href="#" className="text-sm text-gray-500 hover:text-gray-700 transition-colors">Cookie Policy</a>
