@@ -334,24 +334,7 @@ export default function Landing() {
             </Button>
           </div>
 
-          {/* Trusted By Section */}
-          <div className="border-t border-gray-800 pt-16">
-            <p className="text-sm text-gray-400 mb-8 uppercase tracking-wide">Trusted by leading organizations</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 opacity-60">
-              <div className="h-12 bg-gray-700 rounded-lg flex items-center justify-center">
-                <span className="text-gray-300 font-semibold">FinTech Corp</span>
-              </div>
-              <div className="h-12 bg-gray-700 rounded-lg flex items-center justify-center">
-                <span className="text-gray-300 font-semibold">TradingPro</span>
-              </div>
-              <div className="h-12 bg-gray-700 rounded-lg flex items-center justify-center">
-                <span className="text-gray-300 font-semibold">SecureBank</span>
-              </div>
-              <div className="h-12 bg-gray-700 rounded-lg flex items-center justify-center">
-                <span className="text-gray-300 font-semibold">ComplianceAI</span>
-              </div>
-            </div>
-          </div>
+
         </div>
       </section>
 
