@@ -174,6 +174,65 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* AI Agent Status Dashboard */}
+      <section className="py-16 bg-gradient-to-br from-blue-50/50 via-white to-purple-50/30">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12 border border-gray-100">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">AI Agent Status</h2>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span className="text-gray-600 font-medium">Active</span>
+              </div>
+            </div>
+
+            {/* Main Stats Grid */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              {/* Autonomous Tasks */}
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                    <Zap className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="text-blue-700 font-medium">Autonomous Tasks</span>
+                </div>
+                <div className="text-4xl lg:text-5xl font-bold text-blue-900 mb-2">1,247</div>
+                <div className="text-blue-600 text-sm font-medium">Today</div>
+              </div>
+
+              {/* Human Reviews */}
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                    <Users className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="text-purple-700 font-medium">Human Reviews</span>
+                </div>
+                <div className="text-4xl lg:text-5xl font-bold text-purple-900 mb-2">23</div>
+                <div className="text-purple-600 text-sm font-medium">Escalated</div>
+              </div>
+            </div>
+
+            {/* Safety Score */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-gray-600 font-medium">Safety Score</span>
+                <span className="text-2xl font-bold text-gray-900">98.7%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div 
+                  className="bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full transition-all duration-1000" 
+                  style={{ width: '98.7%' }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Platform Features Section */}
       <section id="platform" className="py-32 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
