@@ -92,11 +92,13 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <Brain className="text-white h-5 w-5" />
-              </div>
+              <img 
+                src="/attached_assets/20250630_0145_Square Logo Design_remix_01jyznvhczfqk8vqjs130ydn5d_1752795854788.png" 
+                alt="AgentPilot Labs Logo" 
+                className="w-8 h-8 rounded-lg"
+              />
               <div>
-                <h1 className="text-xl font-semibold text-gray-900">The Agent Pilot</h1>
+                <h1 className="text-xl font-semibold text-gray-900">AgentPilot Labs</h1>
               </div>
             </div>
             
@@ -344,10 +346,12 @@ export default function Landing() {
           <div className="grid lg:grid-cols-5 gap-8">
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                  <Brain className="text-white h-5 w-5" />
-                </div>
-                <span className="text-xl font-semibold text-gray-900">The Agent Pilot</span>
+                <img 
+                  src="/attached_assets/20250630_0145_Square Logo Design_remix_01jyznvhczfqk8vqjs130ydn5d_1752795854788.png" 
+                  alt="AgentPilot Labs Logo" 
+                  className="w-8 h-8 rounded-lg"
+                />
+                <span className="text-xl font-semibold text-gray-900">AgentPilot Labs</span>
               </div>
               <p className="text-gray-600 leading-relaxed mb-6 max-w-md">
                 Multi-agent governance platform with real-time threat detection and collusion prevention. 
