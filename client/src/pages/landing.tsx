@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Brain, Shield, Clock, MessageCircle, BarChart3, CheckCircle, ArrowRight, Play, Users, Zap, Target, Globe, Star, TrendingUp } from "lucide-react";
+import Logo from "@/components/Logo";
 
 export default function Landing() {
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
@@ -92,11 +93,7 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
-              <img 
-                src="/logo.png" 
-                alt="AgentPilot Labs Logo" 
-                className="w-8 h-8 rounded-lg object-contain"
-              />
+              <Logo className="w-8 h-8" />
               <div>
                 <h1 className="text-xl font-semibold text-gray-900">AgentPilot Labs</h1>
               </div>
@@ -346,11 +343,7 @@ export default function Landing() {
           <div className="grid lg:grid-cols-5 gap-8">
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
-                <img 
-                  src="/logo.png" 
-                  alt="AgentPilot Labs Logo" 
-                  className="w-8 h-8 rounded-lg object-contain"
-                />
+                <Logo className="w-8 h-8" />
                 <span className="text-xl font-semibold text-gray-900">AgentPilot Labs</span>
               </div>
               <p className="text-gray-600 leading-relaxed mb-6 max-w-md">
