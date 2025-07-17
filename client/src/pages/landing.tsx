@@ -93,9 +93,9 @@ export default function Landing() {
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
               <img 
-                src="/attached_assets/20250630_0145_Square Logo Design_remix_01jyznvhczfqk8vqjs130ydn5d_1752795854788.png" 
+                src="/logo.png" 
                 alt="AgentPilot Labs Logo" 
-                className="w-8 h-8 rounded-lg"
+                className="w-8 h-8 rounded-lg object-contain"
               />
               <div>
                 <h1 className="text-xl font-semibold text-gray-900">AgentPilot Labs</h1>
@@ -347,9 +347,9 @@ export default function Landing() {
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
                 <img 
-                  src="/attached_assets/20250630_0145_Square Logo Design_remix_01jyznvhczfqk8vqjs130ydn5d_1752795854788.png" 
+                  src="/logo.png" 
                   alt="AgentPilot Labs Logo" 
-                  className="w-8 h-8 rounded-lg"
+                  className="w-8 h-8 rounded-lg object-contain"
                 />
                 <span className="text-xl font-semibold text-gray-900">AgentPilot Labs</span>
               </div>
