@@ -1,50 +1,133 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Brain, Shield, Clock, MessageCircle, BarChart3, CheckCircle, ArrowRight, Play, Users, Zap, Target, Globe, Star, TrendingUp } from "lucide-react";
+import { Brain, Shield, Clock, MessageCircle, BarChart3, CheckCircle, ArrowRight, Play, Users, Zap, Target, Globe, Star, TrendingUp, Activity, Sparkles, Award, Layers } from "lucide-react";
 import Logo from "@/components/Logo";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 export default function Landing() {
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Animate elements on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-rotate testimonials
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const features = [
     {
       icon: Brain,
       title: "Real-time Agent Oversight",
       description: "Monitor AI agents in real-time with instant escalation alerts when human intervention is required.",
-      gradient: "from-blue-500 to-cyan-500"
+      gradient: "from-blue-500 to-cyan-500",
+      stats: "99.9% uptime"
     },
     {
       icon: MessageCircle,
       title: "Interactive Agent Chat",
       description: "Direct communication channel with AI agents for clarification and guidance on complex decisions.",
-      gradient: "from-emerald-500 to-teal-500"
+      gradient: "from-emerald-500 to-teal-500",
+      stats: "< 30s response"
     },
     {
       icon: Shield,
       title: "Risk-Based Filtering",
       description: "Intelligent prioritization system that routes high-risk decisions to appropriate human experts.",
-      gradient: "from-red-500 to-pink-500"
+      gradient: "from-red-500 to-pink-500",
+      stats: "85% risk reduction"
     },
     {
       icon: Clock,
       title: "SLA Management",
       description: "Time-bound response tracking with visual countdown timers ensuring critical decisions aren't delayed.",
-      gradient: "from-amber-500 to-orange-500"
+      gradient: "from-amber-500 to-orange-500",
+      stats: "100% SLA compliance"
     },
     {
       icon: BarChart3,
       title: "Decision Analytics",
       description: "Comprehensive insights into agent performance, intervention patterns, and decision quality metrics.",
-      gradient: "from-purple-500 to-violet-500"
+      gradient: "from-purple-500 to-violet-500",
+      stats: "Real-time insights"
     },
     {
       icon: Users,
       title: "Multi-Agent Support",
       description: "Centralized oversight for diverse agent types across payments, fraud detection, compliance, and trading.",
-      gradient: "from-indigo-500 to-blue-500"
+      gradient: "from-indigo-500 to-blue-500",
+      stats: "50+ agent types"
+    }
+  ];
+
+  const testimonials = [
+    {
+      name: "Sarah Chen",
+      role: "Chief Risk Officer",
+      company: "FinTech Innovations",
+      content: "AgentPilot has revolutionized our risk management. The human-in-the-loop approach gives us confidence in automated decisions while maintaining efficiency.",
+      rating: 5
+    },
+    {
+      name: "Michael Rodriguez",
+      role: "Head of Compliance",
+      company: "Global Bank Corp",
+      content: "The real-time oversight and escalation system has reduced our compliance violations by 90%. It's like having a safety net for all our AI operations.",
+      rating: 5
+    },
+    {
+      name: "Dr. Emily Watson",
+      role: "AI Ethics Director",
+      company: "Tech Solutions Inc",
+      content: "Finally, a platform that addresses the critical need for human oversight in AI systems. The transparency and control it provides are unmatched.",
+      rating: 5
+    }
+  ];
+
+  const achievements = [
+    {
+      icon: Award,
+      title: "99.9% Uptime",
+      description: "Enterprise-grade reliability"
+    },
+    {
+      icon: Sparkles,
+      title: "85% Risk Reduction",
+      description: "Proven risk mitigation"
+    },
+    {
+      icon: Activity,
+      title: "1M+ Decisions",
+      description: "Daily processing volume"
+    },
+    {
+      icon: Layers,
+      title: "50+ Integrations",
+      description: "Seamless connectivity"
     }
   ];
 
@@ -87,7 +170,7 @@ export default function Landing() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative overflow-hidden">
       {/* Navigation */}
       <nav className="bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -123,32 +206,32 @@ export default function Landing() {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-white to-purple-50/30"></div>
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700 mb-8">
+            <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700 mb-8 animate-float">
               <Star className="h-4 w-4 mr-2 text-yellow-500" />
               Human-in-the-Loop AI Oversight Platform
             </div>
             
-            <h1 className="text-6xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight tracking-tight">
+            <h1 className="text-6xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight tracking-tight animate-fadeInUp">
               AI Agent
               <br />
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse-slow">
                 Governance
               </span>
             </h1>
             
-            <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
               Comprehensive oversight platform for multi-agent systems with real-time threat detection, 
               collusion prevention, and human-in-the-loop governance for safe AI deployment.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
               <Link to="/dashboard">
-                <Button size="lg" className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full text-base font-medium">
+                <Button size="lg" className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full text-base font-medium transform hover:scale-105 transition-all duration-300">
                   View Live Demo
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Button variant="outline" size="lg" className="border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-4 rounded-full text-base font-medium">
+              <Button variant="outline" size="lg" className="border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-4 rounded-full text-base font-medium transform hover:scale-105 transition-all duration-300">
                 Schedule Demo
                 <MessageCircle className="ml-2 h-5 w-5" />
               </Button>
@@ -156,20 +239,24 @@ export default function Landing() {
 
             {/* Stats Preview */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-gray-100">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 mb-2">{"< 2min"}</div>
+              <div className="text-center group">
+                <div className="text-3xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{"< 2min"}</div>
                 <div className="text-sm text-gray-600">Response Time</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 mb-2">94%</div>
+              <div className="text-center group">
+                <div className="text-3xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  <AnimatedCounter end={94} suffix="%" />
+                </div>
                 <div className="text-sm text-gray-600">Risk Reduction</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 mb-2">99.7%</div>
+              <div className="text-center group">
+                <div className="text-3xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  <AnimatedCounter end={99.7} suffix="%" />
+                </div>
                 <div className="text-sm text-gray-600">Agent Accuracy</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 mb-2">3.2x</div>
+              <div className="text-center group">
+                <div className="text-3xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">3.2x</div>
                 <div className="text-sm text-gray-600">Faster Resolution</div>
               </div>
             </div>
@@ -202,7 +289,9 @@ export default function Landing() {
                   </div>
                   <span className="text-blue-700 font-medium">Autonomous Tasks</span>
                 </div>
-                <div className="text-4xl lg:text-5xl font-bold text-blue-900 mb-2">1,247</div>
+                <div className="text-4xl lg:text-5xl font-bold text-blue-900 mb-2">
+                  <AnimatedCounter end={1247} />
+                </div>
                 <div className="text-blue-600 text-sm font-medium">Today</div>
               </div>
 
@@ -214,7 +303,9 @@ export default function Landing() {
                   </div>
                   <span className="text-purple-700 font-medium">Human Reviews</span>
                 </div>
-                <div className="text-4xl lg:text-5xl font-bold text-purple-900 mb-2">23</div>
+                <div className="text-4xl lg:text-5xl font-bold text-purple-900 mb-2">
+                  <AnimatedCounter end={23} />
+                </div>
                 <div className="text-purple-600 text-sm font-medium">Escalated</div>
               </div>
             </div>
@@ -223,7 +314,9 @@ export default function Landing() {
             <div className="mb-4">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-gray-600 font-medium">Safety Score</span>
-                <span className="text-2xl font-bold text-gray-900">98.7%</span>
+                <span className="text-2xl font-bold text-gray-900">
+                  <AnimatedCounter end={98.7} suffix="%" />
+                </span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div 
@@ -252,15 +345,25 @@ export default function Landing() {
             {features.map((feature, index) => (
               <div 
                 key={index} 
-                className="group relative bg-white rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100"
+                className={`group relative bg-white rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 animate-on-scroll ${
+                  hoveredFeature === index ? 'scale-105 shadow-2xl' : ''
+                } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 onMouseEnter={() => setHoveredFeature(index)}
                 onMouseLeave={() => setHoveredFeature(null)}
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
                   <feature.icon className="h-7 w-7 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
+                <Badge variant="secondary" className="mb-4 text-xs font-medium">
+                  {feature.stats}
+                </Badge>
                 <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                
+                <div className="mt-4 flex items-center text-sm text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                  Learn more <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                </div>
                 
                 {/* Hover Effect */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`}></div>
@@ -313,6 +416,88 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="py-24 bg-gradient-to-br from-blue-50 to-purple-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              Trusted by Industry Leaders
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              See how organizations worldwide are using AgentPilot to govern their AI agent systems
+            </p>
+          </div>
+          
+          <div className="relative">
+            <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12 max-w-4xl mx-auto">
+              <div className="text-center">
+                <div className="flex justify-center mb-6">
+                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                    <Star key={i} className="h-6 w-6 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                
+                <blockquote className="text-2xl lg:text-3xl font-semibold text-gray-900 mb-8 leading-relaxed">
+                  "{testimonials[currentTestimonial].content}"
+                </blockquote>
+                
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mb-4">
+                    <span className="text-white font-bold text-xl">
+                      {testimonials[currentTestimonial].name.split(' ').map(n => n[0]).join('')}
+                    </span>
+                  </div>
+                  <div className="text-center">
+                    <p className="font-semibold text-gray-900 text-lg">{testimonials[currentTestimonial].name}</p>
+                    <p className="text-gray-600">{testimonials[currentTestimonial].role}</p>
+                    <p className="text-gray-500 text-sm">{testimonials[currentTestimonial].company}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Testimonial Navigation */}
+            <div className="flex justify-center mt-8 space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentTestimonial ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Achievements Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              Proven Results
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Real metrics from our platform deployments across diverse industries
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {achievements.map((achievement, index) => (
+              <div key={index} className="text-center group">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <achievement.icon className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-3xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{achievement.title}</h3>
+                <p className="text-gray-600">{achievement.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Enterprise CTA Section */}
       <section id="enterprise" className="py-32 bg-gray-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
@@ -336,8 +521,6 @@ export default function Landing() {
               <Globe className="ml-2 h-5 w-5" />
             </Button>
           </div>
-
-
         </div>
       </section>
 
